@@ -1,0 +1,20 @@
+{
+  "config": {
+    "closed": 50000,
+    "pending": 5500,
+    "call": 90000,
+    "biz": 3,
+    "ticket": 600,
+    "mode": "deal",
+    "updatedAt": "2026-11-24T17:00:00.000Z"
+  },
+  "reps": {
+    "r-elesa-lecompte-channell": { "name": "Elesa Lecompte-Channell", "team": "AAM" },
+    "r-joel-velasquez": { "name": "Joel Velasquez", "team": "AAM" }
+  },
+  "deals": {
+    "d-18y7s786tlg": { "repId": "r-elesa-lecompte-channell", "repName": "Elesa Lecompte-Channell", "team": "AAM", "account": "", "amount": 400, "status": "closed", "date": "2026-11-24", "ts": 1795536000000 },
+    "d-1kq6dmljd46": { "repId": "r-joel-velasquez", "repName": "Joel Velasquez", "team": "AAM", "account": "", "amount": 100, "status": "closed", "date": "2026-11-24", "ts": 1795536000000 },
+    "d-cyd5med75c": { "repId": "r-joel-velasquez", "repName": "Joel Velasquez", "team": "AAM", "account": "", "amount": 575, "status": "closed", "date": "2026-11-24", "ts": 1795536000000 }
+  }
+}
