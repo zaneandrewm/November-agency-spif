@@ -1,6 +1,5 @@
 // Tiny dependency-free server for the Agency Fam November SPIF board.
-// - Serves index.html for page requests.
-// - Serves data.json (the standings) with no caching, so a fresh deploy shows up on the next refresh.
+// - "/" serves index.html. "/data.json" serves the standings and is never cached.
 // To update the board: edit data.json in the GitHub repo and commit. The app redeploys automatically.
 const http = require('http');
 const fs = require('fs');
@@ -23,7 +22,7 @@ http
         res.end('Could not load ' + hit[0]);
         return;
       }
-      res.writeHead(200, { 'Content-Type': hit[1], 'Cache-Control': hit[2] });
+      res.writeHead(200, { 'Content-Type': hit[1], 'Cache-Control': hit[2], 'X-Robots-Tag': 'noindex' });
       res.end(body);
     });
   })

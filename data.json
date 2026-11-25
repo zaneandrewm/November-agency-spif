@@ -6,15 +6,96 @@
     "biz": 3,
     "ticket": 600,
     "mode": "deal",
-    "updatedAt": "2026-11-24T17:00:00.000Z"
+    "updatedAt": "2026-11-25T15:20:00.000Z"
   },
   "reps": {
-    "r-elesa-lecompte-channell": { "name": "Elesa Lecompte-Channell", "team": "AAM" },
-    "r-joel-velasquez": { "name": "Joel Velasquez", "team": "AAM" }
+    "r-elesa-lecompte-channell": {
+      "name": "Elesa Lecompte-Channell",
+      "team": "AAM"
+    },
+    "r-joel-velasquez": {
+      "name": "Joel Velasquez",
+      "team": "AAM"
+    },
+    "r-grant-plybon": {
+      "name": "Grant Plybon",
+      "team": "AAM"
+    },
+    "r-maddy-brown": {
+      "name": "Maddy Brown",
+      "team": "AAM"
+    }
   },
   "deals": {
-    "d-18y7s786tlg": { "repId": "r-elesa-lecompte-channell", "repName": "Elesa Lecompte-Channell", "team": "AAM", "account": "", "amount": 400, "status": "closed", "date": "2026-11-24", "ts": 1795536000000 },
-    "d-1kq6dmljd46": { "repId": "r-joel-velasquez", "repName": "Joel Velasquez", "team": "AAM", "account": "", "amount": 100, "status": "closed", "date": "2026-11-24", "ts": 1795536000000 },
-    "d-cyd5med75c": { "repId": "r-joel-velasquez", "repName": "Joel Velasquez", "team": "AAM", "account": "", "amount": 575, "status": "closed", "date": "2026-11-24", "ts": 1795536000000 }
+    "d-18y7s786tlg": {
+      "repId": "r-elesa-lecompte-channell",
+      "repName": "Elesa Lecompte-Channell",
+      "team": "AAM",
+      "account": "",
+      "amount": 400,
+      "status": "closed",
+      "date": "2026-11-24",
+      "ts": 1795536000000
+    },
+    "d-1kq6dmljd46": {
+      "repId": "r-joel-velasquez",
+      "repName": "Joel Velasquez",
+      "team": "AAM",
+      "account": "",
+      "amount": 100,
+      "status": "closed",
+      "date": "2026-11-24",
+      "ts": 1795536000000
+    },
+    "d-cyd5med75c": {
+      "repId": "r-joel-velasquez",
+      "repName": "Joel Velasquez",
+      "team": "AAM",
+      "account": "",
+      "amount": 575,
+      "status": "closed",
+      "date": "2026-11-24",
+      "ts": 1795536000000
+    },
+    "d-h121wpbw52": {
+      "repId": "r-grant-plybon",
+      "repName": "Grant Plybon",
+      "team": "AAM",
+      "account": "",
+      "amount": 1035,
+      "status": "closed",
+      "date": "2026-11-24",
+      "ts": 1795562700000
+    },
+    "d-xdw2rtkcib": {
+      "repId": "r-joel-velasquez",
+      "repName": "Joel Velasquez",
+      "team": "AAM",
+      "account": "",
+      "amount": 408.33,
+      "status": "closed",
+      "date": "2026-11-25",
+      "ts": 1795619760000
+    },
+    "d-1eqqkzh19gp": {
+      "repId": "r-maddy-brown",
+      "repName": "Maddy Brown",
+      "team": "AAM",
+      "account": "",
+      "amount": 300,
+      "status": "closed",
+      "date": "2026-11-25",
+      "ts": 1795619760000
+    },
+    "d-132lje6o3iw": {
+      "repId": "r-maddy-brown",
+      "repName": "Maddy Brown",
+      "team": "AAM",
+      "account": "",
+      "amount": 1124,
+      "status": "closed",
+      "date": "2026-11-25",
+      "ts": 1795619760000
+    }
   }
 }
