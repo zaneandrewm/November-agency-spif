@@ -409,6 +409,8 @@ textarea{width:100%;min-height:96px;resize:vertical}
 @keyframes ring{0%{transform:scale(.92);opacity:.9}100%{transform:scale(1.18);opacity:0}}
 @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none!important;transition:none!important}.track .run,.mbar i{transition:none!important}}
 
+.rtab .rtag{display:inline-block;margin-left:8px;padding:2px 8px;border-radius:999px;background:linear-gradient(135deg,#ffd36b,#f2a31b);color:#4a2f00;font-size:10.5px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;vertical-align:middle}
+
 </style>
 </head>
 <body>
@@ -572,7 +574,7 @@ textarea{width:100%;min-height:96px;resize:vertical}
     <section class="sec" id="leaderboards" aria-labelledby="hLB">
       <div class="lb-top">
         <div><h2 id="hLB">Leaderboards</h2><p class="sub">Who is closing and who is building pipe, team by team. <span class="lb-asof" id="lbAsof"></span></p></div>
-        <div class="lbseg" id="lbSeg" role="group" aria-label="Filter by group"><button aria-pressed="true" data-t="All">All teams</button><button aria-pressed="false" data-t="AAM">AAM</button><button aria-pressed="false" data-t="ACQ">Agency ACQ</button><button aria-pressed="false" data-t="PAM">PAM</button></div>
+        <div class="lbseg" id="lbSeg" role="group" aria-label="Filter by group"><button aria-pressed="true" data-t="All">All teams</button><button aria-pressed="false" data-t="AAM">AAM</button><button aria-pressed="false" data-t="PAM">PAM</button></div>
       </div>
       <div id="lbBody"></div>
     </section>
@@ -1305,7 +1307,7 @@ function renderBoards(){
   var cards=el("div","tcards");
   list.forEach(function(t){
     var c=el("article","tcard "+t.group.toLowerCase());
-    var h=el("div","tc-h"),ti=el("h3",null,t.name);ti.appendChild(el("small",null,t.mgr?"Led by "+t.mgr:t.group));h.appendChild(ti);
+    var h=el("div","tc-h"),ti=el("h3",null,t.name);ti.appendChild(el("small",null,(t.mgr?"Led by "+t.mgr:t.group)+(t.note?" · "+t.note:"")));h.appendChild(ti);
     var k=el("div","tc-k");
     [["Month closed-won",sumT(t,"mcw")],["Quarter closed-won",sumT(t,"qcw")],["Quarter pipe created",sumT(t,"qpipe")]].forEach(function(x){var ch=el("div","kchip");ch.appendChild(el("b",null,fm(x[1])));ch.appendChild(el("span",null,x[0]));k.appendChild(ch)});
     h.appendChild(k);c.appendChild(h);
@@ -1317,7 +1319,7 @@ function renderBoards(){
     rows.forEach(function(r,i){
       var tr=document.createElement("tr");tr.style.setProperty("--i",i);
       var td=document.createElement("td");td.className="rkc";td.appendChild(el("span","medal"+(i<3?" m"+(i+1):""),String(i+1)));tr.appendChild(td);
-      tr.appendChild(el("td","nmc",r.name));
+      var nc=el("td","nmc",r.name);if(r.tag)nc.appendChild(el("span","rtag",r.tag));tr.appendChild(nc);
       td=document.createElement("td");td.className="barc";var mb=el("div","mbar"),bi=document.createElement("i");mb.appendChild(bi);mb.appendChild(el("b",null,fm(r.qcw)));td.appendChild(mb);tr.appendChild(td);
       setTimeout(function(){bi.style.width=Math.max(4,r.qcw/mq*100)+"%"},reduce?0:300+i*70);
       tr.appendChild(el("td",r.mcw===topM&&topM>0?"top1":"",fm(r.mcw)));
