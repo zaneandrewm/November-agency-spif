@@ -1,12 +1,17 @@
 {
-"config":{"closed":59088,"pending":0,"call":90000,"biz":2,"ticket":600,"mode":"deal","updatedAt":"2026-11-25T19:08:00.000Z"},
+"config":{"closed":60710.57,"pending":0,"call":90000,"biz":2,"ticket":600,"mode":"deal","updatedAt":"2026-11-25T21:02:00.000Z"},
 "reps":{
 "r-elesa-lecompte-channell":{"name":"Elesa Lecompte-Channell","team":"AAM"},
 "r-joel-velasquez":{"name":"Joel Velasquez","team":"AAM"},
 "r-grant-plybon":{"name":"Grant Plybon","team":"AAM"},
 "r-maddy-brown":{"name":"Maddy Brown","team":"AAM"},
 "r-brandon-myers":{"name":"Brandon Myers","team":"AAM"},
-"r-sandy-trouba":{"name":"Sandy Trouba","team":"AAM"}
+"r-sandy-trouba":{"name":"Sandy Trouba","team":"AAM"},
+"r-miranda-pfahler":{"name":"Miranda Pfahler","team":"PAM"},
+"r-chandler-pickett":{"name":"Chandler Pickett","team":"PAM"},
+"r-rami-perry":{"name":"Rami Perry","team":"PAM"},
+"r-maddie-miser":{"name":"Maddie Miser","team":"PAM"},
+"r-juliana-hughes":{"name":"Juliana Hughes","team":"AAM"}
 },
 "deals":{
 "d-18y7s786tlg":{"repId":"r-elesa-lecompte-channell","repName":"Elesa Lecompte-Channell","team":"AAM","account":"","amount":400,"status":"closed","date":"2026-11-24","ts":1795536000000},
@@ -18,7 +23,12 @@
 "d-132lje6o3iw":{"repId":"r-maddy-brown","repName":"Maddy Brown","team":"AAM","account":"","amount":1124,"status":"closed","date":"2026-11-25","ts":1795619760000},
 "d-1gkthtc4rpq":{"repId":"r-brandon-myers","repName":"Brandon Myers","team":"AAM","account":"","amount":2200,"status":"closed","date":"2026-11-25","ts":1795633763000},
 "d-cqot1bqd4t":{"repId":"r-joel-velasquez","repName":"Joel Velasquez","team":"AAM","account":"","amount":1235,"status":"closed","date":"2026-11-25","ts":1795633763000},
-"d-29hc0xv4lmw":{"repId":"r-sandy-trouba","repName":"Sandy Trouba","team":"AAM","account":"","amount":84,"status":"closed","date":"2026-11-25","ts":1795633763000}
+"d-29hc0xv4lmw":{"repId":"r-sandy-trouba","repName":"Sandy Trouba","team":"AAM","account":"","amount":84,"status":"closed","date":"2026-11-25","ts":1795633763000},
+"d-1b4j8nhro04":{"repId":"r-miranda-pfahler","repName":"Miranda Pfahler","team":"PAM","account":"","amount":780,"status":"closed","date":"2026-11-25","ts":1795640542000},
+"d-lxuduv7jal":{"repId":"r-chandler-pickett","repName":"Chandler Pickett","team":"PAM","account":"","amount":1125,"status":"closed","date":"2026-11-25","ts":1795640542000},
+"d-z5fnys9cad":{"repId":"r-juliana-hughes","repName":"Juliana Hughes","team":"AAM","account":"","amount":1622.57,"status":"closed","date":"2026-11-25","ts":1795640542000},
+"d-246ew3265sq":{"repId":"r-rami-perry","repName":"Rami Perry","team":"PAM","account":"","amount":1625,"status":"closed","date":"2026-11-24","ts":1795640542000},
+"d-253awf6ixf9":{"repId":"r-maddie-miser","repName":"Maddie Miser","team":"PAM","account":"","amount":3700,"status":"closed","date":"2026-11-24","ts":1795640542000}
 },
 "boards":{"asOf":"Nov 25, 9:22 AM","teams":[{"id":"isaiah","name":"Isaiah's team","group":"AAM","mgr":"Isaiah Tsau","reps":[{"name":"Austin Nimnicht","mcw":2551.24,"qcw":10540.24,"mpipe":6037,"qpipe":17874},{"name":"Maddy Brown","mcw":1529,"qcw":6229,"mpipe":2219,"qpipe":14026},{"name":"Noah Joe","mcw":1739.41,"qcw":4157.66,"mpipe":4620,"qpipe":11878},{"name":"Anthony Armendarez","mcw":2360,"qcw":8825.01,"mpipe":3610,"qpipe":12914},{"name":"Joel Velasquez","mcw":1551.65,"qcw":10494.56,"mpipe":8436,"qpipe":24638},{"name":"Bryce Varni","mcw":210,"qcw":10214.75,"mpipe":3899,"qpipe":18911},{"name":"David Ritchie","mcw":2309.15,"qcw":8267.02,"mpipe":7044,"qpipe":15489},{"name":"Grant Plybon","mcw":3687.37,"qcw":8121.7,"mpipe":2955,"qpipe":11531}]},{"id":"grace","name":"Grace's team","group":"AAM","mgr":"Grace Pierce","reps":[{"name":"Eliza Fitts","mcw":203.5,"qcw":6188.16,"mpipe":6313,"qpipe":16116},{"name":"Emily Cantu","mcw":2942.5,"qcw":7252.9,"mpipe":3457,"qpipe":11544},{"name":"Jevin Rosendoll","mcw":2332.5,"qcw":4192.91,"mpipe":7020,"qpipe":19049},{"name":"Elesa Lecompte-Channell","mcw":1152.17,"qcw":1771.42,"mpipe":6432,"qpipe":11874},{"name":"William-Paul Thomas","mcw":2970.67,"qcw":9650.67,"mpipe":6406,"qpipe":14425},{"name":"Juliana Hughes","mcw":3484.26,"qcw":6015.59,"mpipe":9092,"qpipe":15910},{"name":"Matt DiGregorio","mcw":7804,"qcw":16208.29,"mpipe":14982,"qpipe":33294,"tag":"Agency ACQ"}],"note":"Includes Agency ACQ"},{"id":"marcus","name":"Marcus's team (Flywheel)","group":"AAM","mgr":"Marcus Lehnerz","reps":[{"name":"Brandon Myers","mcw":915,"qcw":3925,"mpipe":6090,"qpipe":10915},{"name":"Carlos Tremont","mcw":1145,"qcw":4675,"mpipe":5710,"qpipe":14840},{"name":"Harry Meister","mcw":4389,"qcw":12347,"mpipe":12659,"qpipe":29822},{"name":"Preston Manley","mcw":5645,"qcw":10230,"mpipe":10445,"qpipe":22675},{"name":"Sandy Trouba","mcw":4402,"qcw":11406,"mpipe":6597,"qpipe":12771},{"name":"Seth Erickson","mcw":1071,"qcw":7573,"mpipe":5580,"qpipe":13609},{"name":"Everett Webre","mcw":1175,"qcw":3209,"mpipe":4480,"qpipe":11428}]},{"id":"pam","name":"PAM","group":"PAM","mgr":"John Housholder","reps":[{"name":"Maddie Miser","mcw":3468,"qcw":15530.95,"mpipe":4700,"qpipe":12064},{"name":"Rami Perry","mcw":9675.33,"qcw":20270.07,"mpipe":10300,"qpipe":33410},{"name":"Miranda Pfahler","mcw":215,"qcw":9348.2,"mpipe":10465,"qpipe":23293},{"name":"Michael McBride","mcw":2944.87,"qcw":9911.37,"mpipe":2620,"qpipe":18202},{"name":"Chandler Pickett","mcw":2146.01,"qcw":2634.75,"mpipe":4529,"qpipe":6448},{"name":"Wes Chalk","mcw":368,"qcw":3353,"mpipe":3616,"qpipe":12278}]}]}
 }
