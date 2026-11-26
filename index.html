@@ -653,6 +653,11 @@ textarea{width:100%;min-height:96px;resize:vertical}
 @keyframes wwave{0%,100%{transform:rotate(-135deg)}50%{transform:rotate(-165deg)}}
 @keyframes wwave2{0%,100%{transform:rotate(135deg)}50%{transform:rotate(165deg)}}
 
+/* v13 surprise entrance */
+.walt{transition:transform .9s cubic-bezier(.3,1.5,.5,1),opacity .45s}
+.walt.gone{opacity:0;pointer-events:none}
+.walt.L.gone[data-pose]{--tx:-190px}.walt.R.gone[data-pose]{--tx:190px}
+
 </style>
 </head>
 <body>
@@ -791,7 +796,7 @@ textarea{width:100%;min-height:96px;resize:vertical}
         <div class="prizebar" id="prizeBar"></div>
         <div class="bigbanner" aria-hidden="true">★ GRAND PRIZE ★ <b>$500</b> ★</div>
         <div class="wheelrow">
-          <div class="walt L" id="walL" data-pose="idle"><div class="wbub" id="bubL" aria-hidden="true"></div><div class="wfig"></div></div>
+          <div class="walt L gone" id="walL" data-pose="idle"><div class="wbub" id="bubL" aria-hidden="true"></div><div class="wfig"></div></div>
         <div class="wheelbox" id="wheelBox">
           <div class="rimring" aria-hidden="true"></div>
           <div class="bulbs" aria-hidden="true"></div>
@@ -801,7 +806,7 @@ textarea{width:100%;min-height:96px;resize:vertical}
           <div class="sheen" aria-hidden="true"></div>
           <div class="hub" aria-hidden="true">★</div>
         </div>
-          <div class="walt R" id="walR" data-pose="idle"><div class="wbub" id="bubR" aria-hidden="true"></div><div class="wfig"></div></div>
+          <div class="walt R gone" id="walR" data-pose="idle"><div class="wbub" id="bubR" aria-hidden="true"></div><div class="wfig"></div></div>
         </div>
         <button class="spinbig" id="spinBtn" type="button" disabled>Spin</button>
         <p class="pick" id="pick" aria-live="polite"></p>
@@ -1930,10 +1935,15 @@ function pickOne(a){return a[Math.floor(Math.random()*a.length)]}
 function wClear(){(state.wt||[]).forEach(clearTimeout);state.wt=[]}
 function wLater(fn,ms){state.wt.push(setTimeout(fn,ms))}
 function wIdle(){wClear();wPose("L","idle");wPose("R","idle");wSay("L","");wSay("R","")}
+function wHide(){["L","R"].forEach(function(s){var x=$("#wal"+s);if(x)x.classList.add("gone")})}
+function sfxPop(){var x=audio();if(!x)return;var t=x.currentTime+.02;tone(260,t,.22,"sine",.16,820);tone(330,t+.1,.22,"sine",.14,990);[72,79,84,88].forEach(function(m,k){vib(m,t+.28+k*.07,.7,.06)})}
 function wSpin(big,crawlAt,sid){
-  wClear();wPose("L","lean");wPose("R","lean");
+  wClear();var was=$("#walL").classList.contains("gone");
+  ["L","R"].forEach(function(s){$("#wal"+s).classList.remove("gone")});if(was)sfxPop();
+  wPose("L","lean");wPose("R","lean");
+  wLater(function(){
   wSay("L",big?"Grand prize time!!":pickOne(["Who's it gonna be?!","Here we go!"]),2400);
-  wSay("R",big?"Who's it gonna be?!":pickOne(["I love this part!","Let's goooo!"]),2400);
+  wSay("R",big?"Who's it gonna be?!":pickOne(["I love this part!","Let's goooo!"]),2400)},was?900:0);
   wLater(function(){wPose("L","us");wPose("R","us");wSay("L",pickOne(["Hi, everybody!","Hello, Zoom!"]),2200);wSay("R",pickOne(["You ready?!","Who do you think it is?"]),2200)},2800);
   wLater(function(){wPose("L","lean");wPose("R","lean");wSay("L",pickOne(["Ooh, look at it go!","Go, wheel, go!"]),2200);wSay("R",pickOne(["Who's it gonna be?!","Somebody's about to win!"]),2200)},5400);
   wLater(function(){wPose("L","hype");wPose("R","hype");wSay("L","Here it comes!!",0);wSay("R","This is it!!",0)},crawlAt);
@@ -1994,7 +2004,7 @@ function applyCap(){
   state.winners.forEach(function(w){n[w.name]=(n[w.name]||0)+1;if(v==="t")state.used[w.name]=n[w.name];else if(n[w.name]>=cap)state.out[w.name]=1});
 }
 function resetDraw(){
-  if(state.spinning||state.busy)return;closeFinale();wIdle();state.winners=[];state.out={};state.used={};state.frozenReps=null;closeWinner();$("#pick").textContent="";resetWheel();drawUI();
+  if(state.spinning||state.busy)return;closeFinale();wIdle();wHide();state.winners=[];state.out={};state.used={};state.frozenReps=null;closeWinner();$("#pick").textContent="";resetWheel();drawUI();
 }
 
 wInit();wIdle();
