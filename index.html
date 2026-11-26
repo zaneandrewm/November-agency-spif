@@ -442,11 +442,13 @@ textarea{width:100%;min-height:96px;resize:vertical}
 @media (max-width:640px){.flags{grid-template-columns:repeat(2,minmax(0,1fr));gap:30px 10px}.flag{height:112px}}
 
 /* ===== v7 live wheel + how it works ===== */
-.stage{position:relative;margin-top:18px;border-radius:30px;padding:clamp(16px,3.5vw,36px) clamp(12px,3vw,32px) 22px;color:#fff;overflow:hidden;isolation:isolate;background:radial-gradient(120% 90% at 50% 0%,#3d1f94 0%,#18124f 46%,#07072b 100%);box-shadow:0 30px 80px -30px rgba(80,40,200,.75),inset 0 0 0 1px rgba(255,255,255,.14)}
-.stage::before{content:"";position:absolute;inset:-60%;z-index:-1;background:conic-gradient(from 0deg,transparent 0 8%,rgba(255,255,255,.08) 10%,transparent 14% 33%,rgba(120,220,255,.1) 36%,transparent 40% 66%,rgba(255,120,200,.1) 70%,transparent 74%);animation:spot 26s linear infinite}
-.stage::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background-image:radial-gradient(2px 2px at 8% 18%,#fff,transparent),radial-gradient(2px 2px at 22% 70%,#9fe8ff,transparent),radial-gradient(3px 3px at 35% 10%,#ffe27a,transparent),radial-gradient(2px 2px at 62% 82%,#fff,transparent),radial-gradient(3px 3px at 78% 22%,#ff9bd0,transparent),radial-gradient(2px 2px at 92% 60%,#fff,transparent),radial-gradient(2px 2px at 50% 94%,#ffe27a,transparent),radial-gradient(2px 2px at 14% 90%,#9fe8ff,transparent);animation:twk 3.2s ease-in-out infinite alternate}
+.stage{position:relative;margin-top:18px;padding:clamp(16px,3.5vw,36px) clamp(24px,3vw,32px) 22px;color:var(--ink,#10172a);isolation:isolate;overflow-x:clip}
+.stagebg{position:absolute;inset:0;z-index:-1;pointer-events:none;overflow:hidden;background:radial-gradient(120% 80% at 50% 0%,#3d1f94 0%,#18124f 50%,#0a0a30 100%);-webkit-mask-image:linear-gradient(to bottom,#000 0,#000 58%,transparent 96%),linear-gradient(to right,transparent,#000 24%,#000 76%,transparent);-webkit-mask-composite:source-in;mask-image:linear-gradient(to bottom,#000 0,#000 58%,transparent 96%),linear-gradient(to right,transparent,#000 24%,#000 76%,transparent);mask-composite:intersect}
+.stagebg::before{content:"";position:absolute;inset:-60%;z-index:-1;background:conic-gradient(from 0deg,transparent 0 8%,rgba(255,255,255,.08) 10%,transparent 14% 33%,rgba(120,220,255,.1) 36%,transparent 40% 66%,rgba(255,120,200,.1) 70%,transparent 74%);animation:spot 26s linear infinite}
+.stagebg::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background-image:radial-gradient(2px 2px at 8% 18%,#fff,transparent),radial-gradient(2px 2px at 22% 70%,#9fe8ff,transparent),radial-gradient(3px 3px at 35% 10%,#ffe27a,transparent),radial-gradient(2px 2px at 62% 82%,#fff,transparent),radial-gradient(3px 3px at 78% 22%,#ff9bd0,transparent),radial-gradient(2px 2px at 92% 60%,#fff,transparent),radial-gradient(2px 2px at 50% 94%,#ffe27a,transparent),radial-gradient(2px 2px at 14% 90%,#9fe8ff,transparent);animation:twk 3.2s ease-in-out infinite alternate}
 @keyframes spot{to{transform:rotate(1turn)}}
 @keyframes twk{from{opacity:.25}to{opacity:1}}
+.stage .prizebar,.stage .wheelbox,.stage .spinbig{color:#fff}.stage .spinbig{color:#2a1600}
 .prizebar{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
 .pz{display:flex;flex-direction:column;align-items:center;min-width:104px;padding:8px 16px;border-radius:18px;background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.28);transition:transform .25s,opacity .25s}
 .pz b{font-family:var(--display);font-size:24px;font-weight:900;line-height:1.1}
@@ -456,7 +458,7 @@ textarea{width:100%;min-height:96px;resize:vertical}
 .pz.done{opacity:.6}.pz.done b{text-decoration:line-through}
 @keyframes pzp{50%{box-shadow:0 0 0 3px #fff,0 0 46px rgba(255,255,255,.95)}}
 .wheelbox{position:relative;width:min(100%,640px);aspect-ratio:1;margin:34px auto 26px}
-.wheelrot{position:relative;z-index:1;width:100%;height:100%;border-radius:50%;transition:transform 6.4s cubic-bezier(.1,.6,.08,1)}
+.wheelrot{position:relative;z-index:1;width:100%;height:100%;border-radius:50%;transition:transform 11s cubic-bezier(.08,.42,.05,1)}
 .wheelrot.instant{transition:none}
 #wheel{width:100%;height:100%;display:block}
 .rimring{position:absolute;inset:-16px;border-radius:50%;background:conic-gradient(from 0deg,#ffd75e,#ff7ab8,#7ee3f2,#7ee33b,#ffd75e);box-shadow:0 0 44px rgba(255,200,90,.6),0 0 100px rgba(150,90,255,.55);animation:rspin 7s linear infinite}
@@ -480,14 +482,14 @@ textarea{width:100%;min-height:96px;resize:vertical}
 .spinbig.sm{font-size:clamp(16px,3vw,22px);margin-top:22px}
 @keyframes bigp{50%{transform:scale(1.04)}}
 @keyframes sw{0%,40%{transform:translateX(-120%)}100%{transform:translateX(120%)}}
-.stage .pick{margin:20px 0 0;text-align:center;font-family:var(--display);font-weight:900;font-size:clamp(24px,4.5vw,40px);min-height:1.3em;color:#ffe27a}
+.stage .pick{margin:20px 0 0;text-align:center;font-family:var(--display);font-weight:900;font-size:clamp(24px,4.5vw,40px);min-height:1.3em;color:var(--ink,#10172a)}
 .winners{list-style:none;display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:12px 0 0;padding:0}
-.winners li{--tc:#ffd75e;padding:7px 14px;border-radius:999px;font-weight:800;background:rgba(255,255,255,.1);border:2px solid var(--tc);box-shadow:0 0 14px color-mix(in srgb,var(--tc) 55%,transparent)}
-.winners li b{color:var(--tc);margin-right:2px}
+.winners li{--tc:#ffd75e;padding:7px 14px;border-radius:999px;font-weight:800;background:var(--surface,#fff);color:var(--ink,#10172a);border:2px solid var(--tc);box-shadow:0 0 14px color-mix(in srgb,var(--tc) 55%,transparent)}
+.winners li b{color:var(--ink,#10172a);margin-right:2px}
 .stagebar{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;justify-content:center;margin-top:18px}
 .stage .opt{font-size:13px;opacity:.85;display:flex;gap:8px;align-items:center}
-.stage .btn.ghost{color:#fff;border-color:rgba(255,255,255,.4)}
-.stagefine{text-align:center;font-size:12.5px;opacity:.65;margin:14px auto 0;max-width:60ch}
+.stage .btn.ghost{color:var(--ink,#10172a);border-color:var(--line,#c9d3e6)}
+.stagefine{text-align:center;font-size:12.5px;color:var(--muted,#5b6785);opacity:1;margin:14px auto 0;max-width:60ch}
 .winner{position:fixed;inset:0;z-index:40;display:grid;place-items:center;padding:16px;background:rgba(5,4,30,.8);-webkit-backdrop-filter:blur(7px);backdrop-filter:blur(7px);animation:fi .3s}
 .winner[hidden]{display:none}
 @keyframes fi{from{opacity:0}}
@@ -515,7 +517,7 @@ textarea{width:100%;min-height:96px;resize:vertical}
 .hstep.s2::after{animation-delay:1.2s}.hstep.s3::after{animation-delay:2.4s}
 @media (max-width:900px){.how{grid-template-columns:1fr}.hstep{min-height:0}}
 @media (prefers-reduced-motion:reduce){.stage::before,.stage::after,.rimring,.bulbs,.sheen,.spinbig,.spinbig::after,.hstep::after,.hstep .ic,.wlogo,.wcard::before,.pz.on{animation:none!important}}
-.stage label.opt{color:#fff;opacity:.9}
+.stage label.opt{color:var(--ink,#10172a);opacity:.85}
 .stage .wheelbox{margin-top:48px}
 
 </style>
@@ -652,6 +654,7 @@ textarea{width:100%;min-height:96px;resize:vertical}
       <h2 id="hDrum">The drum</h2>
       <p class="sub">Every ticket is its own equal slice, colored by team. More tickets means more slices, spread all around the wheel.</p>
       <div class="stage">
+        <div class="stagebg" aria-hidden="true"></div>
         <div class="prizebar" id="prizeBar"></div>
         <div class="wheelbox" id="wheelBox">
           <div class="rimring" aria-hidden="true"></div>
@@ -1153,7 +1156,7 @@ var DAYS=[["2026-11-24","Tue"],["2026-11-25","Wed"],["2026-11-26","Thu"],["2026-
 var PAL=[["#19b4cc","#06223a"],["#2b4c92","#ffffff"],["#e9a812","#2b1e00"],["#7ad7e6","#06223a"],["#0a7f95","#ffffff"]];
 var MAXTK=24;
 
-var PRIZES=[500,200,200,200];
+var PRIZES=[200,200,200,500];
 var state={out:{},winners:[],frozenReps:null,cfg:{closed:0,pending:0,call:0,biz:0,ticket:600,mode:"deal",updatedAt:""},reps:{},deals:{},loaded:{cfg:false,reps:false,deals:false},
   sample:false,canEdit:false,filter:"All",open:{},first:true,prev:{},db:null,missing:false,ready:false,cmp:null,pasted:null,rot:0,spinning:false,p:0,pp:0};
 
@@ -1528,11 +1531,11 @@ function drawUI(){
   var c=state.cmp,P=state.winners.length,done=P>=PRIZES.length,btn=$("#spinBtn");
   var left=(state.wheelSlices||[]).length;
   btn.disabled=state.spinning||!c||c.total===0||done||(P>0&&left===0);
-  btn.textContent=state.spinning?"Spinning…":done?"Draw complete":P===0?"Spin for the $500 grand prize":"Spin for $"+PRIZES[P];
+  btn.textContent=state.spinning?"Spinning…":done?"Draw complete":P===PRIZES.length-1?"Spin for the $"+PRIZES[P]+" grand prize":"Spin for $"+PRIZES[P];
   var pb=$("#prizeBar");pb.textContent="";
   PRIZES.forEach(function(v,i){
-    var w=state.winners[i],d=el("span","pz"+(i===0?" grand":"")+(w?" done":"")+(i===P&&!done?" on":""));
-    d.appendChild(el("b",null,"$"+v));d.appendChild(el("small",null,w?w.name:(i===0?"Grand prize":"Prize "+(i+1))));pb.appendChild(d);
+    var w=state.winners[i],d=el("span","pz"+(i===PRIZES.length-1?" grand":"")+(w?" done":"")+(i===P&&!done?" on":""));
+    d.appendChild(el("b",null,"$"+v));d.appendChild(el("small",null,w?w.name:(i===PRIZES.length-1?"Grand prize":"Prize "+(i+1))));pb.appendChild(d);
   });
   var ol=$("#winners");ol.textContent="";
   state.winners.forEach(function(w){var li=el("li",null);li.style.setProperty("--tc",w.color);li.appendChild(el("b",null,"$"+w.prize));li.appendChild(document.createTextNode(" "+w.name));ol.appendChild(li)});
@@ -1540,7 +1543,7 @@ function drawUI(){
   $("#muteBtn").textContent=AU.muted?"Sound off":"Sound on";
 }
 /* ---- sound: everything is synthesized, nothing to download ---- */
-var AU={ctx:null,master:null,muted:false,timer:0,step:0,next:0,on:false};
+var AU={ctx:null,master:null,mus:null,muted:false,timer:0,step:0,next:0,on:false};
 function audio(){
   if(!AU.ctx){
     var C=window.AudioContext||window.webkitAudioContext;if(!C)return null;
@@ -1550,45 +1553,54 @@ function audio(){
   return AU.ctx;
 }
 function mf(m){return 440*Math.pow(2,(m-69)/12)}
-function tone(f,t,d,type,v,f2){
+function tone(f,t,d,type,v,f2,dest){
   var x=AU.ctx,o=x.createOscillator(),g=x.createGain();o.type=type||"sine";o.frequency.setValueAtTime(f,t);if(f2)o.frequency.exponentialRampToValueAtTime(f2,t+d);
-  g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(v,t+.01);g.gain.exponentialRampToValueAtTime(.0001,t+d);
-  o.connect(g);g.connect(AU.master);o.start(t);o.stop(t+d+.05);
+  g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(v,t+.012);g.gain.exponentialRampToValueAtTime(.0001,t+d);
+  o.connect(g);g.connect(dest||AU.master);o.start(t);o.stop(t+d+.05);
 }
-function noise(t,d,f1,f2,v,type){
+function noise(t,d,f1,f2,v,type,dest){
   var x=AU.ctx,len=Math.max(1,Math.floor(x.sampleRate*d)),b=x.createBuffer(1,len,x.sampleRate),a=b.getChannelData(0);
   for(var i=0;i<len;i++)a[i]=Math.random()*2-1;
-  var s=x.createBufferSource();s.buffer=b;var f=x.createBiquadFilter();f.type=type||"bandpass";f.frequency.setValueAtTime(f1,t);f.frequency.exponentialRampToValueAtTime(f2,t+d);f.Q.value=1.2;
-  var g=x.createGain();g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(v,t+d*.3);g.gain.exponentialRampToValueAtTime(.0001,t+d);
-  s.connect(f);f.connect(g);g.connect(AU.master);s.start(t);s.stop(t+d+.05);
+  var s=x.createBufferSource();s.buffer=b;var f=x.createBiquadFilter();f.type=type||"bandpass";f.frequency.setValueAtTime(f1,t);f.frequency.exponentialRampToValueAtTime(f2,t+d);f.Q.value=1;
+  var g=x.createGain();g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(v,t+Math.min(.01,d*.3));g.gain.exponentialRampToValueAtTime(.0001,t+d);
+  s.connect(f);f.connect(g);g.connect(dest||AU.master);s.start(t);s.stop(t+d+.05);
 }
-var CH=[[45,[69,72,76]],[41,[65,69,72]],[48,[67,72,76]],[43,[67,71,74]]],ARP=[0,1,2,1,0,1,2,2],EIGHTH=.19;
+/* soft electric-piano note: sine body, a quiet bell partial, gentle decay */
+function ep(m,t,d,v,dest){var f=mf(m);tone(f,t,d,"sine",v,0,dest);tone(f*2.005,t,d*.35,"sine",v*.28,0,dest);tone(f*.5,t,d*.8,"triangle",v*.18,0,dest)}
+/* lo-fi loop: 84 bpm, swung eighths, jazzy 9th chords */
+var LF=[{r:38,c:[53,57,60,64]},{r:43,c:[55,59,62,65]},{r:36,c:[52,55,59,62]},{r:33,c:[57,60,64,67]}],
+    MEL=[-1,-1,81,-1,-1,79,-1,-1, -1,77,-1,-1,74,-1,-1,-1, -1,-1,79,-1,76,-1,-1,-1, 72,-1,-1,74,-1,-1,-1,-1],EIGHTH=.357;
 function musicStep(t,s){
-  var bar=Math.floor(s/8)%4,i=s%8,ch=CH[bar];
-  tone(mf(ch[1][ARP[i]]+(i%4===3?12:0)),t,.16,"square",.05);
-  if(i%2===0)tone(mf(ch[0]),t,.34,"triangle",.2);
-  if(i===0||i===4)tone(150,t,.18,"sine",.5,45);
-  if(i===2||i===6)noise(t,.12,2500,1200,.16);
-  noise(t,.04,9000,9000,.035,"highpass");
+  var bar=Math.floor(s/8)%4,i=s%8,ch=LF[bar],o=AU.mus,tt=t+(i%2?.06:0);
+  if(i===0||i===3||(i===5&&bar%2)){ch.c.forEach(function(m,k){ep(m,tt+k*.018,i===0?1.9:.8,i===0?.055:.04,o)})}
+  if(i===0||i===5||i===6&&bar===3)tone(mf(ch.r),tt,.5,"sine",.3,0,o);
+  if(i===0||i===5)tone(135,tt,.2,"sine",.42,42,o);
+  if(i===2||i===6){noise(tt,.16,1700,900,.11,"bandpass",o);tone(190,tt,.08,"triangle",.05,0,o)}
+  noise(tt,.03,8000,8000,i%2?.02:.035,"highpass",o);
+  var mn=MEL[s%32];if(mn>0)ep(mn,tt,.9,.04,o);
+  if(Math.random()<.35)noise(t+Math.random()*EIGHTH,.012,3000,3000,.03,"highpass",o);
 }
 function musicStart(){
-  var x=audio();if(!x)return;AU.on=true;AU.step=0;AU.next=x.currentTime+.05;
-  clearInterval(AU.timer);
+  var x=audio();if(!x)return;
+  AU.mus=x.createGain();AU.mus.gain.value=1;var lp=x.createBiquadFilter();lp.type="lowpass";lp.frequency.value=3200;AU.mus.connect(lp);lp.connect(AU.master);
+  AU.on=true;AU.step=0;AU.next=x.currentTime+.08;clearInterval(AU.timer);
   AU.timer=setInterval(function(){
     if(!AU.on||!AU.ctx)return;
-    while(AU.next<AU.ctx.currentTime+.3){musicStep(AU.next,AU.step);AU.next+=EIGHTH;AU.step++}
-  },60);
+    while(AU.next<AU.ctx.currentTime+.4){musicStep(AU.next,AU.step);AU.next+=EIGHTH;AU.step++}
+  },80);
 }
-function musicStop(){AU.on=false;clearInterval(AU.timer)}
-function sfxWhoosh(){var x=audio();if(!x)return;var t=x.currentTime;noise(t,.9,300,5000,.35);tone(220,t,.7,"sawtooth",.06,880)}
-function sfxTick(){if(!AU.ctx)return;var t=AU.ctx.currentTime;tone(1900,t,.035,"square",.07);tone(950,t,.05,"triangle",.1)}
+function musicStop(){
+  AU.on=false;clearInterval(AU.timer);
+  if(AU.mus&&AU.ctx){var g=AU.mus.gain,t=AU.ctx.currentTime;g.cancelScheduledValues(t);g.setValueAtTime(g.value,t);g.linearRampToValueAtTime(0,t+.7)}
+}
+function sfxWhoosh(){var x=audio();if(!x)return;var t=x.currentTime;noise(t,1.1,250,3500,.16)}
+function sfxTick(){if(!AU.ctx)return;var t=AU.ctx.currentTime;tone(620,t,.05,"sine",.16,330);noise(t,.02,2400,2400,.05,"bandpass")}
 function sfxWin(){
   var x=audio();if(!x)return;var t=x.currentTime+.05;
-  [72,76,79,84].forEach(function(m,i){tone(mf(m),t+i*.13,.28,"square",.11);tone(mf(m-12),t+i*.13,.28,"triangle",.14)});
-  var t2=t+.6;[60,64,67,72,76].forEach(function(m){tone(mf(m),t2,1.5,"sawtooth",.06);tone(mf(m+12),t2,1.3,"triangle",.07)});
-  tone(120,t2,.3,"sine",.6,40);noise(t2,.9,6000,900,.25);
-  for(var i=0;i<14;i++)tone(mf(96+Math.floor(Math.random()*12)),t2+.1+i*.1,.2,"sine",.06);
-  [79,84,88,91,96].forEach(function(m,i){tone(mf(m),t2+1.4+i*.11,.4,"triangle",.09)});
+  [72,76,79,83,86,91].forEach(function(m,i){ep(m,t+i*.09,1.4,.07)});
+  var t2=t+.62;[48,55,64,67,71,74].forEach(function(m,k){ep(m,t2+k*.015,3,.07)});
+  tone(130,t2,.3,"sine",.5,42);noise(t2,.7,5000,700,.12,"bandpass");
+  for(var i=0;i<10;i++)ep(91+[0,2,4,7,9][i%5]-(i>4?12:0),t2+.25+i*.17,.7,.03);
 }
 /* ---- team colors ---- */
 var WP={tpk:["#7ee33b","#ff9d2e","#c2f26b","#3fae1d"],vlf:["#4f86ff","#ff4d6d","#9bbcff","#2a56c4"],fly:["#19c9e0","#0a8fa8","#8aeaf6","#067287"],pam:["#ff3b53","#2d2d3a","#ff93a0","#9b1126"]};
@@ -1672,7 +1684,7 @@ function spin(){
   var slices=state.wheelSlices&&state.wheelSlices.length?state.wheelSlices:ticketSlices(c);if(!slices.length)return;
   if(!state.frozenReps)state.frozenReps=c.rows.filter(function(r){return r.tix>0}).map(function(r){return {name:r.name,tix:r.tix,team:r.team}});
   var pickT=rand()*slices.length,win=slices[Math.min(slices.length-1,Math.floor(pickT))],n=slices.length,step=360/n;
-  var theta=pickT/n*360,delta=(((360-theta)-(state.rot%360))%360+360)%360,target=state.rot+360*7+delta;
+  var theta=pickT/n*360,delta=(((360-theta)-(state.rot%360))%360+360)%360,target=state.rot+360*9+delta;
   var rotEl=$("#wheelRot"),box=$("#wheelBox");
   state.spinning=true;$("#pick").textContent="";drawUI();box.classList.add("spinning");
   audio();sfxWhoosh();musicStart();
@@ -1697,7 +1709,7 @@ function spin(){
   };
   if(reduce){rotEl.classList.add("instant");rotEl.style.transform="rotate("+target+"deg)";state.rot=target;rotEl.classList.remove("instant");setTimeout(fin,50);return}
   rotEl.classList.remove("instant");rotEl.addEventListener("transitionend",fin);
-  rotEl.style.transform="rotate("+target+"deg)";state.rot=target;setTimeout(fin,7000);requestAnimationFrame(tickLoop);
+  rotEl.style.transform="rotate("+target+"deg)";state.rot=target;setTimeout(fin,12200);requestAnimationFrame(tickLoop);
 }
 function resetDraw(){
   if(state.spinning)return;state.winners=[];state.out={};state.frozenReps=null;closeWinner();$("#pick").textContent="";resetWheel();drawUI();
