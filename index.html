@@ -573,7 +573,7 @@ textarea{width:100%;min-height:96px;resize:vertical}
 .fh.sm{font-size:clamp(36px,7vw,76px)}
 .fsub{margin:12px auto 0;max-width:46ch;font-weight:700;font-size:clamp(16px,2.4vw,26px);opacity:.92;text-wrap:balance}
 .fcards{display:flex;flex-wrap:wrap;gap:clamp(12px,2vw,22px);justify-content:center;align-items:stretch;margin-top:clamp(18px,3vw,36px)}
-.fcard{--tc:#ffd75e;--d:0s;flex:1 1 200px;max-width:260px;padding:16px 14px 18px;border-radius:26px;background:linear-gradient(160deg,color-mix(in srgb,var(--tc) 38%,#1a1060),#0e0a40);border:3px solid var(--tc);box-shadow:0 0 40px color-mix(in srgb,var(--tc) 55%,transparent);opacity:0;animation:fpop .7s cubic-bezier(.2,1.5,.4,1) var(--d) both,bob 3.4s ease-in-out calc(var(--d) + .8s) infinite}
+.fcard{--tc:#ffd75e;--d:0s;flex:1 1 200px;max-width:260px;padding:16px 14px 18px;border-radius:26px;background:linear-gradient(160deg,color-mix(in srgb,var(--tc) 38%,#1a1060),#0e0a40);border:3px solid var(--tc);box-shadow:0 0 40px color-mix(in srgb,var(--tc) 55%,transparent);opacity:0;animation:fpop .55s cubic-bezier(.2,1.5,.4,1) var(--d) both,bob 3.4s ease-in-out calc(var(--d) + .6s) infinite}
 .fcard.grand{flex-basis:100%;max-width:420px;border-width:5px;box-shadow:0 0 70px rgba(255,215,94,.7),0 0 120px color-mix(in srgb,var(--tc) 50%,transparent)}
 @keyframes fpop{from{opacity:0;transform:translateY(60px) scale(.5)}to{opacity:1;transform:none}}
 .fcard .flg{width:clamp(64px,10vw,110px);margin:0 auto 6px}.fcard.grand .flg{width:clamp(80px,14vw,140px)}
@@ -1822,7 +1822,7 @@ function showFinale(){
   var f=$("#finale"),ws=state.winners.slice(),map=repSlugMap();(state.ft||[]).forEach(clearTimeout);state.ft=[];
   var order=ws.length?[ws[ws.length-1]].concat(ws.slice(0,-1)):[],cards=$("#fCards");cards.textContent="";
   order.forEach(function(w,i){
-    var slug=slugOf({name:w.name},map),c=el("div","fcard"+(i===0?" grand":""));c.style.setProperty("--tc",w.color);c.style.setProperty("--d",(.5+i*.9)+"s");
+    var slug=slugOf({name:w.name},map),c=el("div","fcard"+(i===0?" grand":""));c.style.setProperty("--tc",w.color);c.style.setProperty("--d",(.4+i*.5)+"s");
     var lg=el("div","flg");lg.innerHTML=(slug&&LOGOS[slug])?LOGOS[slug]:"";c.appendChild(lg);
     c.appendChild(el("div","fpz",(i===0?"🏆 ":"")+"$"+w.prize));c.appendChild(el("div","fnm",w.name));c.appendChild(el("div","ftm",w.team||""));cards.appendChild(c);
   });
@@ -1832,13 +1832,13 @@ function showFinale(){
   rest.forEach(function(r){var row=el("div","frow");var s=slugOf(r,map);row.style.setProperty("--tc",TEAMLOOK[s]||"#ffd75e");row.appendChild(el("b",null,r.name));row.appendChild(el("small",null,r.tix+(r.tix===1?" ticket":" tickets")));nm.appendChild(row)});
   var total=(state.frozenReps||[]).reduce(function(a,r){return a+r.tix},0);
   $("#fTot").textContent=(state.frozenReps||[]).length+" reps put "+total+" tickets in the drum";
-  var dur=Math.max(12,rest.length*2.4+6);f.style.setProperty("--cd",dur+"s");
+  var dur=Math.max(9,rest.length*1.5+4);f.style.setProperty("--cd",dur+"s");
   f.hidden=false;finPhase("fWin");
   musicStop();setTimeout(function(){if(!f.hidden){musicStart(false);if(AU.mus)AU.mus.gain.value=.75}},120);
-  order.forEach(function(w,i){state.ft.push(setTimeout(function(){var x=audio();if(!x)return;var t=x.currentTime;vib(72+i*4,t,1.2,.08);vib(79+i*4,t+.08,1.2,.05)},(.5+i*.9)*1000))});
+  order.forEach(function(w,i){state.ft.push(setTimeout(function(){var x=audio();if(!x)return;var t=x.currentTime;vib(72+i*4,t,1.2,.08);vib(79+i*4,t+.08,1.2,.05)},(.4+i*.5)*1000))});
   state.ft.push(setTimeout(function(){confetti(["#ffd75e","#ffffff","#ff7ab8","#7ee3f2","#7ee33b"],120,1200,innerWidth/2,innerHeight*.4)},700));
   state.ft.push(setTimeout(function(){emojiRain(["🎉","🎊","⭐","🥳"],18,3)},900));
-  var t1=1000*(order.length*.9+8);
+  var t1=1000*(order.length*.5+3.6);
   state.ft.push(setTimeout(function(){finPhase("fCred")},t1));
   state.ft.push(setTimeout(function(){finPhase("fEnd")},t1+dur*1000+1500));
 }
