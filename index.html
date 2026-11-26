@@ -562,6 +562,38 @@ textarea{width:100%;min-height:96px;resize:vertical}
 @media (prefers-reduced-motion:reduce){.bigbanner,.wheelbox.shake,.splash.go,.em{animation:none!important}}
 .stage .opt select{font:inherit;font-weight:700;margin-left:6px;padding:5px 8px;border-radius:10px;border:1px solid var(--line,#c9d3e6);background:var(--surface,#fff);color:var(--ink,#10172a)}
 
+/* v10 finale */
+.finale{position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:20px;overflow:hidden;color:#fff;text-align:center;background:radial-gradient(120% 90% at 50% 0%,#4a2aa8 0%,#1a1258 50%,#080830 100%);animation:fi .5s}
+.finale[hidden]{display:none}
+.finale::before{content:"";position:absolute;inset:-60%;background:conic-gradient(from 0deg,transparent 0 8%,rgba(255,255,255,.09) 10%,transparent 14% 33%,rgba(120,220,255,.1) 36%,transparent 40% 66%,rgba(255,120,200,.1) 70%,transparent 74%);animation:spot 26s linear infinite}
+.finale::after{content:"";position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(2px 2px at 8% 18%,#fff,transparent),radial-gradient(2px 2px at 22% 70%,#9fe8ff,transparent),radial-gradient(3px 3px at 35% 10%,#ffe27a,transparent),radial-gradient(2px 2px at 62% 82%,#fff,transparent),radial-gradient(3px 3px at 78% 22%,#ff9bd0,transparent),radial-gradient(2px 2px at 92% 60%,#fff,transparent),radial-gradient(2px 2px at 50% 94%,#ffe27a,transparent);animation:twk 3s ease-in-out infinite alternate}
+.fstage{position:relative;z-index:1;width:min(1100px,100%);animation:fi .6s}
+.fstage[hidden]{display:none}
+.fh{margin:0;font-family:var(--display);font-weight:900;font-size:clamp(44px,9vw,110px);line-height:1;background:linear-gradient(90deg,#ffe27a,#ff7ab8,#7ee3f2,#7ee33b,#ffe27a);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:rbw 5s linear infinite;filter:drop-shadow(0 4px 0 rgba(0,0,0,.25))}
+.fh.sm{font-size:clamp(36px,7vw,76px)}
+.fsub{margin:12px auto 0;max-width:46ch;font-weight:700;font-size:clamp(16px,2.4vw,26px);opacity:.92;text-wrap:balance}
+.fcards{display:flex;flex-wrap:wrap;gap:clamp(12px,2vw,22px);justify-content:center;align-items:stretch;margin-top:clamp(18px,3vw,36px)}
+.fcard{--tc:#ffd75e;--d:0s;flex:1 1 200px;max-width:260px;padding:16px 14px 18px;border-radius:26px;background:linear-gradient(160deg,color-mix(in srgb,var(--tc) 38%,#1a1060),#0e0a40);border:3px solid var(--tc);box-shadow:0 0 40px color-mix(in srgb,var(--tc) 55%,transparent);opacity:0;animation:fpop .7s cubic-bezier(.2,1.5,.4,1) var(--d) both,bob 3.4s ease-in-out calc(var(--d) + .8s) infinite}
+.fcard.grand{flex-basis:100%;max-width:420px;border-width:5px;box-shadow:0 0 70px rgba(255,215,94,.7),0 0 120px color-mix(in srgb,var(--tc) 50%,transparent)}
+@keyframes fpop{from{opacity:0;transform:translateY(60px) scale(.5)}to{opacity:1;transform:none}}
+.fcard .flg{width:clamp(64px,10vw,110px);margin:0 auto 6px}.fcard.grand .flg{width:clamp(80px,14vw,140px)}
+.fcard .flg svg{width:100%;height:auto;display:block}
+.fpz{font-family:var(--display);font-weight:900;font-size:clamp(30px,5vw,54px);color:#ffe27a;text-shadow:0 3px 0 #b35c00;line-height:1.05}
+.fcard.grand .fpz{font-size:clamp(40px,7vw,76px)}
+.fnm{font-family:var(--display);font-weight:900;font-size:clamp(20px,3vw,32px);line-height:1.1;margin-top:4px}
+.fcard.grand .fnm{font-size:clamp(26px,4.4vw,46px)}
+.ftm{margin-top:4px;font-size:13px;font-weight:700;opacity:.8}
+.fscroll{position:relative;height:min(52vh,460px);overflow:hidden;margin-top:18px;-webkit-mask-image:linear-gradient(to bottom,transparent,#000 14%,#000 86%,transparent);mask-image:linear-gradient(to bottom,transparent,#000 14%,#000 86%,transparent)}
+.fscrollin{position:absolute;left:0;right:0;top:0;display:flex;flex-direction:column;gap:clamp(14px,2.6vh,26px);transform:translateY(min(52vh,460px));animation:credits var(--cd,20s) linear forwards}
+@keyframes credits{to{transform:translateY(-100%)}}
+.frow{--tc:#ffd75e;display:flex;flex-direction:column;align-items:center}
+.frow b{font-family:var(--display);font-weight:900;font-size:clamp(26px,5vw,52px);line-height:1.05;text-shadow:0 0 24px color-mix(in srgb,var(--tc) 80%,transparent)}
+.frow small{font-size:13px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--tc)}
+.fctl{position:absolute;z-index:2;right:max(16px,env(safe-area-inset-right,0px));bottom:max(14px,env(safe-area-inset-bottom,0px));display:flex;gap:8px}
+.fctl button{font:inherit;font-weight:700;font-size:13px;color:#fff;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:7px 14px;cursor:pointer}
+.fctl button:hover{background:rgba(255,255,255,.22)}
+@media (prefers-reduced-motion:reduce){.finale::before,.finale::after,.fh,.fcard,.fstage{animation:none!important}.fcard{opacity:1}.fscrollin{animation:none!important;transform:none;position:static}.fscroll{height:auto;max-height:52vh;overflow:auto}}
+
 </style>
 </head>
 <body>
@@ -714,11 +746,30 @@ textarea{width:100%;min-height:96px;resize:vertical}
         <div class="stagebar">
           <label class="opt">Prizes per person <select id="capSel"><option value="t" selected>Raffle style: a win pulls 1 ticket</option><option value="1">1 prize each (four different winners)</option><option value="2">Up to 2</option><option value="99">No limit</option></select></label>
           <button class="btn ghost sm" id="muteBtn" type="button">Sound on</button>
+          <button class="btn ghost sm" id="finBtn" type="button" hidden>Replay finale</button>
           <button class="btn ghost sm" id="resetBtn" type="button" hidden>Reset draw</button>
         </div>
         <p class="stagefine">The official draw runs live at the Agency Org Kickoff on December 3. A spin on your own screen is just for fun.</p>
       </div>
       <div class="splash" id="splash" hidden aria-hidden="true"><b></b><small></small></div>
+      <div class="finale" id="finale" role="dialog" aria-modal="true" aria-label="Draw finale" hidden>
+        <div class="fstage" id="fWin">
+          <h2 class="fh">Congratulations!</h2>
+          <p class="fsub">to our four winners</p>
+          <div class="fcards" id="fCards"></div>
+        </div>
+        <div class="fstage" id="fCred" hidden>
+          <h2 class="fh sm">Well done, everyone</h2>
+          <p class="fsub">Thank you for every deal you closed and every ticket you put in the drum.</p>
+          <div class="fscroll"><div class="fscrollin" id="fNames"></div></div>
+        </div>
+        <div class="fstage" id="fEnd" hidden>
+          <h2 class="fh">Until next time</h2>
+          <p class="fsub" id="fTot"></p>
+          <p class="fsub">Keep closing. Another SPIF is coming in December.</p>
+        </div>
+        <div class="fctl"><button type="button" id="fSkip">Skip ›</button><button type="button" id="fReplay">Replay</button><button type="button" id="fClose">Close</button></div>
+      </div>
       <div class="winner" id="winner" role="dialog" aria-modal="true" aria-labelledby="wName" hidden>
         <div class="wcard">
           <div class="wk" id="wKick"></div>
@@ -1584,6 +1635,7 @@ function drawUI(){
   var ol=$("#winners");ol.textContent="";
   state.winners.forEach(function(w){var li=el("li",null);li.style.setProperty("--tc",w.color);li.appendChild(el("b",null,"$"+w.prize));li.appendChild(document.createTextNode(" "+w.name));ol.appendChild(li)});
   $("#stage").classList.toggle("grandtime",P===PRIZES.length-1&&!state.spinning);
+  $("#finBtn").hidden=!done;
   $("#resetBtn").hidden=!(P>0||state.spinning);
   $("#muteBtn").textContent=AU.muted?"Sound off":"Sound on";
 }
@@ -1762,7 +1814,35 @@ function showWinner(w,slug){
   $("#wNext").textContent=state.winners.length>=PRIZES.length?"Finish":"Next spin";
   box.hidden=false;$("#wNext").focus();
 }
-function closeWinner(){var was=!$("#winner").hidden;$("#winner").hidden=true;if(was&&!state.spinning&&state.winners.length===PRIZES.length-1)sfxCue();if(was)drawUI()}
+function closeWinner(){var was=!$("#winner").hidden;$("#winner").hidden=true;if(was&&!state.spinning&&state.winners.length===PRIZES.length-1)sfxCue();if(was)drawUI();if(was&&!state.spinning&&state.winners.length>=PRIZES.length)showFinale()}
+/* ---- finale: congratulations, then thanks to everyone who entered ---- */
+function finPhase(w){["fWin","fCred","fEnd"].forEach(function(id){$("#"+id).hidden=(id!==w)});$("#finale").dataset.ph=w}
+function closeFinale(){var f=$("#finale");if(f.hidden)return;(state.ft||[]).forEach(clearTimeout);state.ft=[];f.hidden=true;musicStop();try{speechSynthesis&&speechSynthesis.cancel()}catch(e){}}
+function showFinale(){
+  var f=$("#finale"),ws=state.winners.slice(),map=repSlugMap();(state.ft||[]).forEach(clearTimeout);state.ft=[];
+  var order=ws.length?[ws[ws.length-1]].concat(ws.slice(0,-1)):[],cards=$("#fCards");cards.textContent="";
+  order.forEach(function(w,i){
+    var slug=slugOf({name:w.name},map),c=el("div","fcard"+(i===0?" grand":""));c.style.setProperty("--tc",w.color);c.style.setProperty("--d",(.5+i*.9)+"s");
+    var lg=el("div","flg");lg.innerHTML=(slug&&LOGOS[slug])?LOGOS[slug]:"";c.appendChild(lg);
+    c.appendChild(el("div","fpz",(i===0?"🏆 ":"")+"$"+w.prize));c.appendChild(el("div","fnm",w.name));c.appendChild(el("div","ftm",w.team||""));cards.appendChild(c);
+  });
+  var won={};ws.forEach(function(w){won[w.name]=1});
+  var rest=(state.frozenReps||[]).filter(function(r){return !won[r.name]}).sort(function(a,b){return b.tix-a.tix||a.name.localeCompare(b.name)});
+  var nm=$("#fNames");nm.textContent="";
+  rest.forEach(function(r){var row=el("div","frow");var s=slugOf(r,map);row.style.setProperty("--tc",TEAMLOOK[s]||"#ffd75e");row.appendChild(el("b",null,r.name));row.appendChild(el("small",null,r.tix+(r.tix===1?" ticket":" tickets")));nm.appendChild(row)});
+  var total=(state.frozenReps||[]).reduce(function(a,r){return a+r.tix},0);
+  $("#fTot").textContent=(state.frozenReps||[]).length+" reps put "+total+" tickets in the drum";
+  var dur=Math.max(12,rest.length*2.4+6);f.style.setProperty("--cd",dur+"s");
+  f.hidden=false;finPhase("fWin");
+  musicStop();setTimeout(function(){if(!f.hidden){musicStart(false);if(AU.mus)AU.mus.gain.value=.75}},120);
+  order.forEach(function(w,i){state.ft.push(setTimeout(function(){var x=audio();if(!x)return;var t=x.currentTime;vib(72+i*4,t,1.2,.08);vib(79+i*4,t+.08,1.2,.05)},(.5+i*.9)*1000))});
+  state.ft.push(setTimeout(function(){confetti(["#ffd75e","#ffffff","#ff7ab8","#7ee3f2","#7ee33b"],120,1200,innerWidth/2,innerHeight*.4)},700));
+  state.ft.push(setTimeout(function(){emojiRain(["🎉","🎊","⭐","🥳"],18,3)},900));
+  var t1=1000*(order.length*.9+8);
+  state.ft.push(setTimeout(function(){finPhase("fCred")},t1));
+  state.ft.push(setTimeout(function(){finPhase("fEnd")},t1+dur*1000+1500));
+}
+function finNext(){var p=$("#finale").dataset.ph;(state.ft||[]).forEach(clearTimeout);state.ft=[];if(p==="fWin"){finPhase("fCred");state.ft.push(setTimeout(function(){finPhase("fEnd")},parseFloat($("#finale").style.getPropertyValue("--cd"))*1000+1500))}else if(p==="fCred")finPhase("fEnd")}
 function spin(){
   var c=state.cmp;if(!c||c.total===0||state.spinning||state.winners.length>=PRIZES.length)return;
   var slices=state.wheelSlices&&state.wheelSlices.length?state.wheelSlices:ticketSlices(c);if(!slices.length)return;
@@ -1809,7 +1889,7 @@ function applyCap(){
   state.winners.forEach(function(w){n[w.name]=(n[w.name]||0)+1;if(v==="t")state.used[w.name]=n[w.name];else if(n[w.name]>=cap)state.out[w.name]=1});
 }
 function resetDraw(){
-  if(state.spinning)return;state.winners=[];state.out={};state.used={};state.frozenReps=null;closeWinner();$("#pick").textContent="";resetWheel();drawUI();
+  if(state.spinning)return;closeFinale();state.winners=[];state.out={};state.used={};state.frozenReps=null;closeWinner();$("#pick").textContent="";resetWheel();drawUI();
 }
 
 /* ---------- admin ---------- */
@@ -1897,11 +1977,12 @@ $("#seg").addEventListener("click",function(e){var b=e.target.closest("button");
 $("#rows").addEventListener("click",function(e){var b=e.target.closest(".rowbtn");if(!b)return;var id=b.dataset.id;state.open[id]=!state.open[id];renderBoard(state.cmp)});
 $("#spinBtn").addEventListener("click",spin);
 $("#resetBtn").addEventListener("click",resetDraw);
+$("#finBtn").addEventListener("click",showFinale);$("#fClose").addEventListener("click",closeFinale);$("#fReplay").addEventListener("click",showFinale);$("#fSkip").addEventListener("click",finNext);
 $("#capSel").addEventListener("change",function(){applyCap();if(!state.spinning){resetWheel();drawUI()}});
 $("#muteBtn").addEventListener("click",function(){AU.muted=!AU.muted;if(AU.master)AU.master.gain.value=AU.muted?0:.85;drawUI()});
 $("#wNext").addEventListener("click",closeWinner);
 $("#winner").addEventListener("click",function(e){if(e.target===this)closeWinner()});
-document.addEventListener("keydown",function(e){if(e.key==="Escape")closeWinner()});
+document.addEventListener("keydown",function(e){if(e.key==="Escape"){if(!$("#finale").hidden)closeFinale();else closeWinner()}});
 $("#rocket").addEventListener("click",boost);
 $("#replay").addEventListener("click",launch);
 $("#scene").addEventListener("pointermove",function(e){if(reduce)return;var r=this.getBoundingClientRect();this.style.setProperty("--mx",(((e.clientX-r.left)/r.width-.5)*2).toFixed(3))});
