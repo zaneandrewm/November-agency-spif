@@ -631,6 +631,28 @@ textarea{width:100%;min-height:96px;resize:vertical}
 .walt.L[data-pose=lean] .fig,.walt.R[data-pose=lean] .fig{transform-origin:90px 205px}
 @media (prefers-reduced-motion:reduce){.walt *{animation:none!important;transition:none!important}}
 
+/* v12 more alive: slide in, look at the wheel, look at us */
+.walt{--tx:0px;transform:translate(var(--tx),-34%);transition:transform .7s cubic-bezier(.3,1.3,.5,1)}
+.walt.L[data-pose=idle]{--tx:-26px}.walt.R[data-pose=idle]{--tx:26px}
+.walt .eyes{transition:transform .35s}
+.walt.L .eyes{transform:translateX(3px)}.walt.R .eyes{transform:translateX(-3px)}
+.walt[data-pose=idle] .eyes{transform:none}
+.walt[data-pose=us] .eyes{transform:translateY(1px)}
+.walt[data-pose=lean] .fig{animation:none}
+.walt.L[data-pose=lean] .fig{animation:wpL 1.6s ease-in-out infinite}.walt.R[data-pose=lean] .fig{animation:wpR 1.6s ease-in-out infinite}
+.walt.L[data-pose=us] .armR{animation:wwave .5s ease-in-out infinite;transform:rotate(-150deg)}
+.walt.R[data-pose=us] .armL{animation:wwave2 .5s ease-in-out infinite;transform:rotate(150deg)}
+.walt[data-pose=us] .fig{animation:wbob 1s ease-in-out infinite}
+.walt[data-pose=hype] .armL{transform:rotate(150deg)}.walt[data-pose=hype] .armR{transform:rotate(-150deg)}
+.walt[data-pose=hype] .fig{animation:wjump .4s ease-out infinite}
+.walt.L[data-pose=hype] .eyes{transform:translateX(3px)}
+.walt .m-worry,.walt .sweat{display:none!important}
+.walt[data-pose=worry] .eyes{display:block}.walt[data-pose=worry] .m-smile{display:block}
+@keyframes wpL{0%,100%{translate:0 0}50%{translate:16px -4px}}
+@keyframes wpR{0%,100%{translate:0 0}50%{translate:-16px -4px}}
+@keyframes wwave{0%,100%{transform:rotate(-135deg)}50%{transform:rotate(-165deg)}}
+@keyframes wwave2{0%,100%{transform:rotate(135deg)}50%{transform:rotate(165deg)}}
+
 </style>
 </head>
 <body>
@@ -1910,17 +1932,20 @@ function wLater(fn,ms){state.wt.push(setTimeout(fn,ms))}
 function wIdle(){wClear();wPose("L","idle");wPose("R","idle");wSay("L","");wSay("R","")}
 function wSpin(big,crawlAt,sid){
   wClear();wPose("L","lean");wPose("R","lean");
-  wSay("L",big?"Grand prize time!":pickOne(["Who's it gonna be?!","Round and round!","Here we go!"]),2400);
-  wSay("R",big?"Please let it be me!":pickOne(["Please be me!","I've got a good feeling!","Spin, little wheel, spin!"]),2400);
-  wLater(function(){wSay("L",pickOne(["Ooh, it's moving!","Faster, faster!","Is it you? Is it me?"]),2300)},2900);
-  wLater(function(){wSay("R",pickOne(["I can't look!","Don't mess with me, wheel!","Ohhh, that one's close!"]),2300)},5200);
-  wLater(function(){wPose("L","worry");wPose("R","worry");wSay("L",pickOne(["Tick… tick…","Oh no oh no oh no…"]),0);wSay("R",pickOne(["Almost… almost…","I can't watch!!"]),0)},crawlAt);
+  wSay("L",big?"Grand prize time!!":pickOne(["Who's it gonna be?!","Here we go!"]),2400);
+  wSay("R",big?"Who's it gonna be?!":pickOne(["I love this part!","Let's goooo!"]),2400);
+  wLater(function(){wPose("L","us");wPose("R","us");wSay("L",pickOne(["Hi, everybody!","Hello, Zoom!"]),2200);wSay("R",pickOne(["You ready?!","Who do you think it is?"]),2200)},2800);
+  wLater(function(){wPose("L","lean");wPose("R","lean");wSay("L",pickOne(["Ooh, look at it go!","Go, wheel, go!"]),2200);wSay("R",pickOne(["Who's it gonna be?!","Somebody's about to win!"]),2200)},5400);
+  wLater(function(){wPose("L","hype");wPose("R","hype");wSay("L","Here it comes!!",0);wSay("R","This is it!!",0)},crawlAt);
+  wLater(function(){wSay("L",pickOne(["Ohhh, so close!","Slow down, wheel!"]),0);wSay("R",pickOne(["Almost there!!","Who is it?!"]),0)},crawlAt+1800);
+  if(big)wLater(function(){wSay("L","Wait for it…",0);wSay("R","Wait for it…!!",0)},crawlAt+3200);
 }
 function wWin(rep){
-  wClear();var ws=Math.random()<.5?"L":"R",ls=ws==="L"?"R":"L",first=(rep||"").split(" ")[0];
-  wPose(ws,"cheer");wSay(ws,pickOne(["YES!! Woo hoo!","Called it!","What a spin!"]),0);
-  wPose(ls,"tip");wSay(ls,pickOne(["Well played, "+WN[ws]+"!","Great call, "+WN[ws]+"!","Congrats, "+WN[ws]+"!"]),0);
-  wLater(function(){wPose("L","clap");wPose("R","clap");wSay(ws,"Good game, "+WN[ls]+"!",0);wSay(ls,"Congrats, "+first+"!",0)},1500);
+  wClear();var first=(rep||"").split(" ")[0]||"you",big=state.winners.length>=PRIZES.length;
+  wPose("L","cheer");wPose("R","cheer");
+  wSay("L",big?"GRAND PRIZE! Congrats, "+first+"!!":pickOne(["Congrats, "+first+"!","Yes! Congrats, "+first+"!"]),0);
+  wSay("R",big?"WOOHOO, "+first+"!! 🎉":pickOne(["Way to go, "+first+"!","Nice one, "+first+"!"]),0);
+  wLater(function(){wPose("L","clap");wPose("R","clap");wSay("L","Let's hear it for "+first+"!",0);wSay("R","Give it up for "+first+"!",0)},1400);
 }
 function spin(){
   var c=state.cmp;if(!c||c.total===0||state.spinning||state.winners.length>=PRIZES.length)return;
