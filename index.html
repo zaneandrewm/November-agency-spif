@@ -560,6 +560,7 @@ textarea{width:100%;min-height:96px;resize:vertical}
 .wcard.grand .wn{font-size:clamp(38px,10vw,96px)}
 .wcard.grand .wk{font-size:clamp(16px,3.4vw,26px)}
 @media (prefers-reduced-motion:reduce){.bigbanner,.wheelbox.shake,.splash.go,.em{animation:none!important}}
+.stage .opt select{font:inherit;font-weight:700;margin-left:6px;padding:5px 8px;border-radius:10px;border:1px solid var(--line,#c9d3e6);background:var(--surface,#fff);color:var(--ink,#10172a)}
 
 </style>
 </head>
@@ -697,7 +698,7 @@ textarea{width:100%;min-height:96px;resize:vertical}
       <div class="stage" id="stage">
         <div class="stagebg" aria-hidden="true"></div>
         <div class="prizebar" id="prizeBar"></div>
-        <div class="bigbanner" aria-hidden="true">★ THE BIG ONE ★ <b>$500</b> GRAND PRIZE ★</div>
+        <div class="bigbanner" aria-hidden="true">★ GRAND PRIZE ★ <b>$500</b> ★</div>
         <div class="wheelbox" id="wheelBox">
           <div class="rimring" aria-hidden="true"></div>
           <div class="bulbs" aria-hidden="true"></div>
@@ -711,7 +712,7 @@ textarea{width:100%;min-height:96px;resize:vertical}
         <p class="pick" id="pick" aria-live="polite"></p>
         <ol class="winners" id="winners"></ol>
         <div class="stagebar">
-          <label class="opt"><input type="checkbox" id="rmWin" checked> Take a winner's tickets off the wheel after they win</label>
+          <label class="opt">Prizes per person <select id="capSel"><option value="1" selected>1 (four different winners)</option><option value="2">Up to 2</option><option value="99">No limit</option></select></label>
           <button class="btn ghost sm" id="muteBtn" type="button">Sound on</button>
           <button class="btn ghost sm" id="resetBtn" type="button" hidden>Reset draw</button>
         </div>
@@ -1650,26 +1651,32 @@ function sfxWin(){
 
 /* ---- big-moment sounds ---- */
 function chip(notes,t,gap,len,v,type){notes.forEach(function(m,k){tone(mf(m),t+k*gap,len,type||"square",v)})}
-function horn(t,m,d,v){[0,-7,7].forEach(function(c){var f=mf(m);var o=AU.ctx.createOscillator(),g=AU.ctx.createGain(),lp=AU.ctx.createBiquadFilter();o.type="sawtooth";o.detune.value=c;o.frequency.setValueAtTime(f*.93,t);o.frequency.exponentialRampToValueAtTime(f,t+.07);lp.type="lowpass";lp.frequency.value=2200;g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(v,t+.03);g.gain.setValueAtTime(v,t+d*.75);g.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(lp);lp.connect(g);g.connect(AU.master);o.start(t);o.stop(t+d+.05)})}
-function sfxCue(){var x=audio();if(!x)return;var t=x.currentTime+.05;chip([60,64,67,72],t,.09,.14,.07);tone(110,t+.4,.5,"sine",.45,40);horn(t+.4,60,.5,.05)}
+function vib(m,t,d,v,dest){var f=mf(m);tone(f,t,d,"sine",v,0,dest);tone(f*4,t,d*.2,"sine",v*.22,0,dest);tone(f*2,t,d*.5,"sine",v*.12,0,dest)}
+function applause(t,d,v){var n=Math.floor(d*34);for(var i=0;i<n;i++){var u=i/n,env=Math.sin(Math.PI*Math.min(1,u*1.15));noise(t+u*d+Math.random()*.05,.04+Math.random()*.04,1300+Math.random()*2200,900,v*(.25+env*.75)*(.5+Math.random()*.5),"bandpass")}}
+function snap(t,v){noise(t,.05,1900,1300,v,"bandpass");tone(900,t,.03,"triangle",v*.4)}
+function sfxCue(){var x=audio();if(!x)return;var t=x.currentTime+.05;[60,64,67,71,74].forEach(function(m,k){vib(m,t+k*.1,.9,.07)});tone(70,t+.55,.7,"sine",.5,38);ep(48,t+.55,2.2,.08);ep(64,t+.55,2.2,.06);ep(71,t+.55,2.2,.06)}
 function sfxIntro(){
   var x=audio();if(!x)return;var t=x.currentTime+.02;
   chip([60,64,67,72,76,79,84],t,.075,.16,.09);chip([72,76,79,84,88,91,96],t+.6,.075,.18,.08);
-  tone(mf(48),t+1.25,.9,"sawtooth",.1);tone(mf(55),t+1.25,.9,"sawtooth",.08);tone(mf(60),t+1.25,.9,"sawtooth",.08);
+  [36,48,55,60,64].forEach(function(m){ep(m,t+1.25,1.6,.09)});tone(80,t+1.25,.6,"sine",.45,40);
   var n=0,at=t,gap=.16;while(at<t+3.4){noise(at,.1,2200,1400,.04+Math.min(.18,n*.007),"bandpass");at+=gap;gap=Math.max(.035,gap*.93);n++}
   var o=x.createOscillator(),g=x.createGain();o.type="sawtooth";o.frequency.setValueAtTime(110,t+.3);o.frequency.exponentialRampToValueAtTime(1400,t+3.4);g.gain.setValueAtTime(.0001,t+.3);g.gain.exponentialRampToValueAtTime(.035,t+3.3);g.gain.linearRampToValueAtTime(0,t+3.45);var lp=x.createBiquadFilter();lp.type="lowpass";lp.frequency.value=2500;o.connect(lp);lp.connect(g);g.connect(AU.master);o.start(t+.3);o.stop(t+3.5);
 }
-function sfxHorns(){var x=audio();if(!x)return;var t=x.currentTime+.05;horn(t,67,.35,.07);horn(t+.45,67,.35,.07);horn(t+.9,72,.9,.08)}
+function sfxHorns(){var x=audio();if(!x)return;var t=x.currentTime+.25;snap(t,.1);snap(t+.36,.1);snap(t+.72,.12);applause(t+.5,1.8,.07);vib(84,t+.1,1,.05);vib(88,t+.3,1,.05);vib(91,t+.5,1.4,.05)}
 function sfxGrand(){
   var x=audio();if(!x)return;var t=x.currentTime+.05;
-  chip([72,76,79,84,88,91,96,91,88,84,79,84,88,96],t,.075,.14,.09);
-  horn(t+.2,60,.5,.07);horn(t+.75,67,.5,.07);horn(t+1.3,72,1.6,.09);horn(t+1.3,76,1.6,.07);horn(t+1.3,79,1.6,.07);
-  tone(120,t+1.3,.4,"sine",.7,38);noise(t+1.3,1.8,7000,600,.2,"bandpass");
-  [48,55,60,64,67,72,76].forEach(function(m,k){ep(m,t+1.3+k*.02,4,.08)});
-  var bs=t+3.1;chip([79,84,79,84,88,91,88,96],bs,.12,.18,.07);
-  for(var i=0;i<16;i++)ep(91+[0,2,4,7,9][i%5]-(i>8?12:0),t+1.6+i*.17,.7,.04);
-  noise(t+.8,4,900,2200,.05,"bandpass");
-  horn(t+4.2,72,.3,.07);horn(t+4.65,72,.3,.07);horn(t+5.1,79,1.2,.09);
+  noise(t,.55,300,6000,.2,"bandpass");
+  var T=t+.55;tone(65,T,1.2,"sine",.9,32);noise(T,.5,5000,500,.18,"bandpass");
+  [36,48,55,64,67,71,74,79].forEach(function(m,k){ep(m,T+k*.012,5.5,.075)});
+  [72,74,76,79,81,84,88,91,96,91,88,84].forEach(function(m,k){vib(m,T+.15+k*.085,1.1,.065)});
+  /* the lo-fi groove drops in, same band as the spin music */
+  var bus=x.createGain(),lp=x.createBiquadFilter();lp.type="lowpass";lp.frequency.value=4800;bus.connect(lp);lp.connect(AU.master);bus.gain.setValueAtTime(1,T);bus.gain.setValueAtTime(1,T+6);bus.gain.linearRampToValueAtTime(0,T+8);
+  var prev=AU.mus,prevHype=AU.hype;AU.mus=bus;AU.hype=false;
+  for(var k=0;k<18;k++)musicStep(T+1.4+k*EIGHTH,k);
+  AU.mus=prev;AU.hype=prevHype;
+  for(var q=0;q<4;q++){snap(T+1.4+q*EIGHTH*2+EIGHTH*2,.09)}
+  applause(T+.3,5.5,.09);
+  [91,95,98,102].forEach(function(m,k){vib(m,T+4.6+k*.14,1.4,.045)});
 }
 function speak(msg){try{if(AU.muted||!window.speechSynthesis)return;var u=new SpeechSynthesisUtterance(msg);u.rate=.92;u.pitch=1.15;u.volume=1;speechSynthesis.cancel();speechSynthesis.speak(u)}catch(e){}}
 function splash(txt,sub,ms){var s=$("#splash");s.querySelector("b").textContent=txt;s.querySelector("small").textContent=sub||"";s.hidden=false;s.classList.remove("go");void s.offsetWidth;s.classList.add("go");clearTimeout(splash.t);splash.t=setTimeout(function(){s.hidden=true},ms||1800)}
@@ -1765,7 +1772,7 @@ function spin(){
   var rotEl=$("#wheelRot"),box=$("#wheelBox"),big=state.winners.length===PRIZES.length-1;
   rotEl.style.transitionDuration=big?"15s":"11s";
   state.spinning=true;$("#pick").textContent="";drawUI();box.classList.add("spinning");
-  audio();if(big){speak("Here we go! The big one!");splash("HERE WE GO!","the big one · $"+PRIZES[PRIZES.length-1],2200);setTimeout(function(){if(state.spinning)splash("THE BIG ONE!","$"+PRIZES[PRIZES.length-1]+" grand prize",2600)},2300);sfxIntro();setTimeout(function(){if(state.spinning)musicStart(true)},1300)}else{sfxWhoosh();musicStart()}
+  audio();if(big){speak("Here we go! Grand prize time!");splash("HERE WE GO!","grand prize · $"+PRIZES[PRIZES.length-1],2200);setTimeout(function(){if(state.spinning)splash("GRAND PRIZE!","$"+PRIZES[PRIZES.length-1],2600)},2300);sfxIntro();setTimeout(function(){if(state.spinning)musicStart(true)},1300)}else{sfxWhoosh();musicStart()}
   var lastIdx=-1,pt=$("#pointer");
   var tickLoop=function(){
     if(!state.spinning)return;
@@ -1773,8 +1780,8 @@ function spin(){
     if(idx!==lastIdx){if(lastIdx!==-1){sfxTick();pt.classList.remove("hit");void pt.offsetWidth;pt.classList.add("hit")}lastIdx=idx}
     requestAnimationFrame(tickLoop);
   };
-  var fin=function(){
-    if(!state.spinning)return;state.spinning=false;rotEl.removeEventListener("transitionend",fin);box.classList.remove("spinning");
+  var sid=state.spinId=(state.spinId||0)+1,fin=function(){
+    if(!state.spinning||state.spinId!==sid)return;clearTimeout(state.finT);state.spinning=false;rotEl.removeEventListener("transitionend",fin);box.classList.remove("spinning");
     musicStop();if(big)sfxGrand();else{sfxWin();sfxHorns()}
     var slug=slugOf(win,repSlugMap()),color=TEAMLOOK[slug]||"#ffd75e",prize=PRIZES[state.winners.length];
     var teamName="";if(state.boards&&state.boards.teams)state.boards.teams.forEach(function(t){if(t.slug===slug)teamName=(t.sub||t.name||"")});
@@ -1788,14 +1795,18 @@ function spin(){
       for(var k=1;k<=8;k++)(function(k){setTimeout(function(){confetti(CC,110,900,Math.random()*innerWidth,innerHeight*(.25+Math.random()*.3))},k*650)})(k);
       for(var k2=0;k2<4;k2++)(function(k2){setTimeout(function(){confetti(CC,120,1400,k2%2?innerWidth*.05:innerWidth*.95,innerHeight*.85)},500+k2*1100)})(k2);
     }
-    if($("#rmWin").checked)state.out[win.name]=1;
+    applyCap();
     $("#pick").textContent=win.name+" wins $"+prize+"!";
     showWinner(state.winners[state.winners.length-1],slug);
     resetWheel();drawUI();
   };
-  if(reduce){rotEl.classList.add("instant");rotEl.style.transform="rotate("+target+"deg)";state.rot=target;rotEl.classList.remove("instant");setTimeout(fin,50);return}
+  if(reduce){rotEl.classList.add("instant");rotEl.style.transform="rotate("+target+"deg)";state.rot=target;rotEl.classList.remove("instant");state.finT=setTimeout(fin,50);return}
   rotEl.classList.remove("instant");rotEl.addEventListener("transitionend",fin);
-  rotEl.style.transform="rotate("+target+"deg)";state.rot=target;setTimeout(fin,big?16200:12200);requestAnimationFrame(tickLoop);
+  rotEl.style.transform="rotate("+target+"deg)";state.rot=target;state.finT=setTimeout(fin,big?16200:12200);requestAnimationFrame(tickLoop);
+}
+function applyCap(){
+  var cap=parseInt($("#capSel").value,10)||99,n={};state.out={};
+  state.winners.forEach(function(w){n[w.name]=(n[w.name]||0)+1;if(n[w.name]>=cap)state.out[w.name]=1});
 }
 function resetDraw(){
   if(state.spinning)return;state.winners=[];state.out={};state.frozenReps=null;closeWinner();$("#pick").textContent="";resetWheel();drawUI();
@@ -1886,6 +1897,7 @@ $("#seg").addEventListener("click",function(e){var b=e.target.closest("button");
 $("#rows").addEventListener("click",function(e){var b=e.target.closest(".rowbtn");if(!b)return;var id=b.dataset.id;state.open[id]=!state.open[id];renderBoard(state.cmp)});
 $("#spinBtn").addEventListener("click",spin);
 $("#resetBtn").addEventListener("click",resetDraw);
+$("#capSel").addEventListener("change",function(){applyCap();if(!state.spinning){resetWheel();drawUI()}});
 $("#muteBtn").addEventListener("click",function(){AU.muted=!AU.muted;if(AU.master)AU.master.gain.value=AU.muted?0:.85;drawUI()});
 $("#wNext").addEventListener("click",closeWinner);
 $("#winner").addEventListener("click",function(e){if(e.target===this)closeWinner()});
