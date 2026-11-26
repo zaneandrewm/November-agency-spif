@@ -428,6 +428,33 @@ textarea{width:100%;min-height:96px;resize:vertical}
 @media (max-width:640px){.tc-logo{width:64px;height:64px;order:-1}}
 @media (prefers-reduced-motion: reduce){.tc-logo{animation:none!important}}
 
+/* v5: two-line team subtitle, logo always at the end, colorful shimmering flags with logos */
+.tc-h h3 small .sl{display:block;line-height:1.35}
+.tc-h h3{flex:1 1 230px;min-width:0}
+@media (min-width:900px){.tc-h{flex-wrap:nowrap}.tc-k{flex:0 1 auto}}
+.tc-logo{margin-left:auto}
+.flag{--fa:#2a7bf0;--fb:#0b3a8c;display:grid;grid-template-columns:auto minmax(0,1fr);gap:0 9px;align-items:center;max-width:222px;color:#fff;background:linear-gradient(135deg,var(--fa),var(--fb));box-shadow:0 12px 24px -10px rgba(8,30,90,.7),inset 0 0 0 1.5px rgba(255,255,255,.55);overflow:visible}
+.flag.tpk{--fa:#52bf00;--fb:#ff8a1f}.flag.vlf{--fa:#2a5fe0;--fb:#e23b3b}.flag.fly{--fa:#14bdd3;--fb:#0a6f93}.flag.pam{--fa:#2a2a36;--fb:#d4122e}
+.flag.team{background:linear-gradient(135deg,var(--fa),var(--fb))}
+.flag::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:linear-gradient(105deg,transparent 30%,rgba(255,255,255,.7) 48%,rgba(255,255,255,.15) 56%,transparent 70%);background-size:260% 100%;background-position:130% 0;animation:flagSheen 3.3s ease-in-out infinite;animation-delay:var(--sd,0s);mix-blend-mode:soft-light}
+@keyframes flagSheen{0%{background-position:130% 0}55%,100%{background-position:-60% 0}}
+.flag .fl{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.26);box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.6);padding:2px;display:block;flex:none}
+.flag .fl svg{width:100%;height:100%;display:block}
+.flag .ft{min-width:0;position:relative}
+.flag .t,.flag.team .t{color:rgba(255,255,255,.92);font-size:9.5px}
+.flag .n{color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.3)}
+.flag .s{color:#fff;opacity:.95}
+.flag::after{background:linear-gradient(#fff,rgba(255,255,255,.2))}
+@media (max-width:640px){.flag .fl{width:30px;height:30px}.flag{max-width:none}}
+@media (prefers-reduced-motion: reduce){.flag::before{animation:none!important;opacity:0}}
+/* v6: all six flags are exactly the same size */
+.flags{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;align-items:end}
+.flag{width:100%;max-width:none;height:112px;box-sizing:border-box;overflow:visible}
+.flag .n{font-size:clamp(12.5px,1.3vw,15px);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.flag .t{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+@media (max-width:900px){.flags{grid-template-columns:repeat(3,minmax(0,1fr))}.flag{height:118px}}
+@media (max-width:640px){.flags{grid-template-columns:repeat(2,minmax(0,1fr));gap:30px 10px}.flag{height:112px}}
+
 </style>
 </head>
 <body>
@@ -1311,7 +1338,7 @@ var ROCKET='<svg viewBox="0 0 48 32" aria-hidden="true"><path d="M2 16c6-2 8-5 8
 
 function leaders(){
   var T=teamsAll(),L={};if(!T.length)return null;
-  var reps=[];T.forEach(function(t){t.reps.forEach(function(r){reps.push({n:r.name,t:t.name,r:r})})});
+  var reps=[];T.forEach(function(t){t.reps.forEach(function(r){reps.push({n:r.name,t:t.name,s:t.slug,r:r})})});
   function best(arr,f){return arr.reduce(function(b,x){return !b||f(x)>f(b)?x:b},null)}
   L.tq=best(T,function(t){return sumT(t,"qcw")});L.tm=best(T,function(t){return sumT(t,"mcw")});
   L.rq=best(reps,function(x){return x.r.qcw});L.rm=best(reps,function(x){return x.r.mcw});
@@ -1322,16 +1349,17 @@ function renderFlags(){
   var box=$("#flags");if(!box)return;box.textContent="";var L=leaders();
   if(!L){box.hidden=true;return}box.hidden=false;
   var items=[
-    ["team","Team leading the quarter",L.tq.name,fk(sumT(L.tq,"qcw"))+" closed-won"],
-    ["team","Team leading the month",L.tm.name,fk(sumT(L.tm,"mcw"))+" closed-won"],
-    ["","Quarter closed-won leader",L.rq.n,fk(L.rq.r.qcw)],
-    ["","Month closed-won leader",L.rm.n,fk(L.rm.r.mcw)],
-    ["","Quarter pipe created leader",L.pq.n,fk(L.pq.r.qpipe)],
-    ["","Month pipe created leader",L.pm.n,fk(L.pm.r.mpipe)]
+    ["team","Team leading the quarter",L.tq.name,fk(sumT(L.tq,"qcw"))+" closed-won",L.tq.slug],
+    ["team","Team leading the month",L.tm.name,fk(sumT(L.tm,"mcw"))+" closed-won",L.tm.slug],
+    ["","Quarter closed-won leader",L.rq.n,fk(L.rq.r.qcw),L.rq.s],
+    ["","Month closed-won leader",L.rm.n,fk(L.rm.r.mcw),L.rm.s],
+    ["","Quarter pipe created leader",L.pq.n,fk(L.pq.r.qpipe),L.pq.s],
+    ["","Month pipe created leader",L.pm.n,fk(L.pm.r.mpipe),L.pm.s]
   ],hs=[30,18,40,22,34,16],rs=[-2,1.5,-1,2,-1.5,1];
   items.forEach(function(x,i){
-    var b=el("button","flag "+x[0]);b.type="button";b.style.setProperty("--i",i);b.style.setProperty("--h",hs[i]+"px");b.style.setProperty("--r",rs[i]+"deg");
-    b.appendChild(el("span","t",x[1]));b.appendChild(el("span","n",x[2]));b.appendChild(el("span","s",x[3]));
+    var b=el("button","flag "+x[0]+" "+(x[4]||""));b.type="button";b.style.setProperty("--i",i);b.style.setProperty("--h",hs[i]+"px");b.style.setProperty("--r",rs[i]+"deg");b.style.setProperty("--sd",(i*.55)+"s");
+    var lg=el("span","fl");if(x[4]&&LOGOS[x[4]])lg.innerHTML=LOGOS[x[4]];b.appendChild(lg);
+    var tx=el("span","ft");tx.appendChild(el("span","t",x[1]));tx.appendChild(el("span","n",x[2]));tx.appendChild(el("span","s",x[3]));b.appendChild(tx);
     b.addEventListener("click",jumpLB);box.appendChild(b);
   });
 }
@@ -1357,7 +1385,7 @@ function renderBoards(){
   var cards=el("div","tcards");
   list.forEach(function(t){
     var c=el("article","tcard "+(t.slug||t.group.toLowerCase()));
-    var h=el("div","tc-h"),ti=el("h3",null,t.name);ti.appendChild(el("small",null,[t.sub,t.mgr?"Led by "+t.mgr:t.group,t.note].filter(Boolean).join(" · ")));h.appendChild(ti);
+    var h=el("div","tc-h"),ti=el("h3",null,t.name);var sm=el("small",null);[t.sub,[t.mgr?"Led by "+t.mgr:t.group,t.note].filter(Boolean).join(" · ")].filter(Boolean).forEach(function(l){sm.appendChild(el("span","sl",l))});ti.appendChild(sm);h.appendChild(ti);
     var k=el("div","tc-k");
     [["Month closed-won",sumT(t,"mcw")],["Quarter closed-won",sumT(t,"qcw")],["Quarter pipe created",sumT(t,"qpipe")]].forEach(function(x){var ch=el("div","kchip");ch.appendChild(el("b",null,fm(x[1])));ch.appendChild(el("span",null,x[0]));k.appendChild(ch)});
     h.appendChild(k);if(t.slug&&LOGOS[t.slug]){var lg=el("div","tc-logo");lg.innerHTML=LOGOS[t.slug];h.appendChild(lg)}c.appendChild(h);
